@@ -1,3 +1,4 @@
+import 'package:chat_app/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,10 +11,10 @@ class ChatApp extends StatelessWidget {
       designSize: Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
+      builder: (context, child) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Chat App',
-        home: Scaffold(body: Center(child: Text('Chat App'))),
+        routerConfig: AppRouter.router,
       ),
     );
   }
