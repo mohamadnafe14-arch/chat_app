@@ -122,7 +122,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
               SizedBox(height: 40.h),
               BlocConsumer<AuthCubit, AuthCubitState>(
                 listener: (context, state) {
-                  authListen(state, context);
+                  authListen(state, context, "Register successfully");
                 },
                 builder: (context, state) => CustomButton(
                   onPressed: () {

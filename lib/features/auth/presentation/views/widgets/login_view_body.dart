@@ -86,7 +86,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               SizedBox(height: 40.h),
               BlocConsumer<AuthCubit, AuthCubitState>(
                 listener: (context, state) {
-                  authListen(state, context);
+                  print("Listener called: ${state.runtimeType}");
+
+                  authListen(state, context, "Login successfully");
                 },
                 builder: (context, state) => CustomButton(
                   onPressed: () {
