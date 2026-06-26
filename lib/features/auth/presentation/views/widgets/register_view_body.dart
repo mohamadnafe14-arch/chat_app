@@ -1,3 +1,4 @@
+import 'package:chat_app/core/functions/auth_listen.dart';
 import 'package:chat_app/core/styles/styles.dart';
 import 'package:chat_app/core/utils/app_router.dart';
 import 'package:chat_app/features/auth/presentation/manager/cubits/auth_cubit/auth_cubit.dart';
@@ -74,7 +75,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 prefixIcon: Icons.email,
                 controller: emailController,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               CustomTextFormField(
                 hintText: "Enter your name",
                 validator: (value) {
@@ -86,7 +87,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 prefixIcon: Icons.person,
                 controller: nameController,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               CustomTextFormField(
                 controller: passwordController,
                 hintText: "Enter your password",
@@ -102,7 +103,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 isSecure: isSecure,
                 onTap: () => setState(() => isSecure = !isSecure),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               CustomTextFormField(
                 controller: confirmPasswordController,
                 hintText: "confirm your password",
@@ -118,19 +119,10 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 isSecure: isConfirmSecure,
                 onTap: () => setState(() => isConfirmSecure = !isConfirmSecure),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               BlocConsumer<AuthCubit, AuthCubitState>(
                 listener: (context, state) {
-                  if (state is AuthCubitSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Register successfully")),
-                    );
-                    GoRouter.of(context).push(AppRouter.home);
-                  } else if (state is AuthCubitError) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(state.message)));
-                  }
+                  authListen(state, context);
                 },
                 builder: (context, state) => CustomButton(
                   onPressed: () {

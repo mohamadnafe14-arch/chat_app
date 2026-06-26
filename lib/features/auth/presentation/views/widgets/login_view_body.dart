@@ -1,3 +1,5 @@
+import 'package:chat_app/core/functions/auth_listen.dart';
+import 'package:chat_app/core/styles/styles.dart';
 import 'package:chat_app/core/utils/app_router.dart';
 import 'package:chat_app/features/auth/presentation/manager/cubits/auth_cubit/auth_cubit.dart';
 import 'package:chat_app/features/auth/presentation/views/widgets/custom_app_bar.dart';
@@ -17,9 +19,7 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   late GlobalKey<FormState> formKey;
-  String? email, password;
   bool isSecure = true;
-  bool isLoading = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
   @override
@@ -48,6 +48,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             children: [
               SizedBox(height: 40.h),
               CustomAppBar(title: "Login"),
+              SizedBox(height: 5.h),
+              Text(
+                "please Login to your account",
+                style: small.copyWith(color: Colors.grey),
+              ),
               SizedBox(height: 20.h),
               CustomTextFormField(
                 hintText: "Enter your email",
@@ -60,10 +65,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   return null;
                 },
                 prefixIcon: Icons.email,
-                isSecure: isSecure,
                 controller: emailController,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               CustomTextFormField(
                 hintText: "Enter your password",
                 validator: (value) {
@@ -79,36 +83,23 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onTap: () => setState(() => isSecure = !isSecure),
                 controller: passwordController,
               ),
-              SizedBox(height: 50.h),
-              BlocListener<AuthCubit, AuthCubitState>(
+              SizedBox(height: 40.h),
+              BlocConsumer<AuthCubit, AuthCubitState>(
                 listener: (context, state) {
-                  if (state is AuthCubitLoading) {
-                    setState(() => isLoading = true);
-                  } else if (state is AuthCubitSuccess) {
-                    setState(() => isLoading = false);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("You have successfully logged in"),
-                      ),
-                    );
-                  } else if (state is AuthCubitError) {
-                    setState(() => isLoading = false);
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(state.message)));
-                  }
+                  authListen(state, context);
                 },
-                child: CustomButton(
-                  text: "Login",
+                builder: (context, state) => CustomButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      BlocProvider.of<AuthCubit>(
-                        context,
-                      ).login(email: email!, password: password!);
+                      BlocProvider.of<AuthCubit>(context).register(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
                     }
                   },
-                  loading: isLoading,
+                  text: "Login",
+                  loading: state is AuthCubitLoading,
                 ),
               ),
               SizedBox(height: 20.h),

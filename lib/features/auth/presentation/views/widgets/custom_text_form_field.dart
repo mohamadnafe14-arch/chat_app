@@ -1,3 +1,4 @@
+import 'package:chat_app/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,9 +23,14 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide.none,
+        ),
         hint: Text(hintText, style: TextStyle(color: Colors.grey)),
         prefixIcon: GestureDetector(onTap: onTap, child: Icon(prefixIcon)),
+        filled: true,
+        fillColor: grey.withValues(alpha: 0.2),
       ),
       obscureText: isSecure,
       validator: validator,
