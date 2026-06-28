@@ -15,7 +15,7 @@ class ChatApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => BlocProvider(
-        create: (context) => serviceLocator<AuthCubit>(),
+        create: (context) => serviceLocator<AuthCubit>()..getCurrentUser(),
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Chat App',

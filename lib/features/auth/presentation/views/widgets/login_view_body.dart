@@ -89,15 +89,17 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   authListen(state, context, "Login successfully");
                 },
                 builder: (context, state) => CustomButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      BlocProvider.of<AuthCubit>(context).register(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                    }
-                  },
+                  onPressed: state is AuthCubitLoading
+                      ? null
+                      : () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            BlocProvider.of<AuthCubit>(context).register(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                          }
+                        },
                   text: "Login",
                   loading: state is AuthCubitLoading,
                 ),

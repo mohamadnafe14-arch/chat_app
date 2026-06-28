@@ -19,7 +19,7 @@ class _SplashBodyState extends State<SplashBody> {
   void initState() {
     super.initState();
     _timer = Timer(const Duration(seconds: 3), () {
-      context.go(AppRouter.register);
+      context.go(AppRouter.wrapper);
     });
   }
 

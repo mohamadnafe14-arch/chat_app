@@ -36,7 +36,6 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void getCurrentUser() async {
-    emit(AuthCubitLoading());
     final result = authRepo.getCurrentUser();
     result.fold(
       (failuer) => emit(AuthCubitError(failuer.message)),
