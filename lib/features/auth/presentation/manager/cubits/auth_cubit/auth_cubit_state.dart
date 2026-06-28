@@ -7,7 +7,10 @@ final class AuthCubitInitial extends AuthCubitState {}
 
 final class AuthCubitLoading extends AuthCubitState {}
 
-final class AuthCubitSuccess extends AuthCubitState {}
+final class AuthCubitSuccess extends AuthCubitState {
+  final User user;
+  AuthCubitSuccess(this.user);
+}
 
 final class AuthCubitError extends AuthCubitState {
   final String message;
