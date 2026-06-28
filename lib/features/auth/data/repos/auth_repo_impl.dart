@@ -43,4 +43,13 @@ class AuthRepoImpl extends AuthRepo {
       return Left(FirebaseAuthFailuer(e.toString()));
     }
   }
+
+  @override
+  Either<Failuer, User?> getCurrentUser() {
+    try {
+      return Right(firebaseAuthservice.getCurrentUser());
+    } catch (e) {
+      return Left(FirebaseAuthFailuer(e.toString()));
+    }
+  }
 }
