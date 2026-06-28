@@ -33,4 +33,14 @@ class AuthRepoImpl extends AuthRepo {
       return Left(FirebaseAuthFailuer(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failuer, Unit>> logout() async {
+    try {
+      await firebaseAuthservice.logout();
+      return const Right(unit);
+    } catch (e) {
+      return Left(FirebaseAuthFailuer(e.toString()));
+    }
+  }
 }
