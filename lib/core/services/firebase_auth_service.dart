@@ -42,4 +42,14 @@ class FirebaseAuthService {
       throw AppException(e.toString());
     }
   }
+
+  Future<void> logout() async {
+    try {
+      await _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthExceptionMapper.map(e);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
 }
