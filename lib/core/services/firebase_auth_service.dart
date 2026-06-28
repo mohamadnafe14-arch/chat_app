@@ -32,4 +32,14 @@ class FirebaseAuthService {
       throw AppException(e.toString());
     }
   }
+
+  User? getCurrentUser() {
+    try {
+      return _firebaseAuth.currentUser;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthExceptionMapper.map(e);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
 }
