@@ -1,5 +1,5 @@
+import 'package:chat_app/features/auth/data/models/user_model.dart';
 import 'package:chat_app/features/auth/data/repos/auth_repo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,9 +17,17 @@ class AuthCubit extends Cubit<AuthCubitState> {
     );
   }
 
-  void register({required String email, required String password}) async {
+  void register({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
     emit(AuthCubitLoading());
-    final result = await authRepo.register(email, password);
+    final result = await authRepo.register(
+      email: email,
+      password: password,
+      name: name,
+    );
     result.fold(
       (failuer) => emit(AuthCubitError(failuer.message)),
       (user) => emit(AuthCubitSuccess(user)),
@@ -36,7 +44,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   void getCurrentUser() async {
-    final result = authRepo.getCurrentUser();
+    emit(AuthCubitLoading());
+    final result = await authRepo.getCurrentUser();
     result.fold(
       (failuer) => emit(AuthCubitError(failuer.message)),
       (user) => user == null

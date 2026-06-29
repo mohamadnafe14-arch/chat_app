@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chat_app/core/exceptions/app_exeption.dart';
 import 'package:chat_app/core/exceptions/firebase_firestore_exceptions.dart';
 import 'package:chat_app/features/auth/data/models/user_model.dart';
@@ -11,6 +13,7 @@ class FirebaseFirestoreService {
     try {
       await _firestore.collection('users').doc(user.uid).set(user.toMap());
     } on FirebaseException catch (e) {
+      log("The error is $e");
       throw FirebaseFirestoreExceptionMapper.map(e);
     } catch (e) {
       throw AppException(e.toString());

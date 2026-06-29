@@ -1,10 +1,14 @@
 import 'package:chat_app/core/errors/failuer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_app/features/auth/data/models/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class AuthRepo {
-  Future<Either<Failuer, User>> login(String email, String password);
-  Future<Either<Failuer, User>> register(String email, String password);
+  Future<Either<Failuer, UserModel>> login(String email, String password);
+  Future<Either<Failuer, UserModel>> register({
+    required String email,
+    required String password,
+    required String name,
+  });
   Future<Either<Failuer, Unit>> logout();
-  Either<Failuer, User?> getCurrentUser();
+  Future<Either<Failuer, UserModel?>> getCurrentUser();
 }
