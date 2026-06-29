@@ -133,6 +133,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                             BlocProvider.of<AuthCubit>(context).register(
                               email: emailController.text,
                               password: passwordController.text,
+                              name: nameController.text,
                             );
                           }
                         },

@@ -94,7 +94,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       : () {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-                            BlocProvider.of<AuthCubit>(context).register(
+                            BlocProvider.of<AuthCubit>(context).login(
                               email: emailController.text,
                               password: passwordController.text,
                             );

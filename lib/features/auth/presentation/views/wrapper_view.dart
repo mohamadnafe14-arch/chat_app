@@ -9,7 +9,7 @@ class WrapperView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthCubitState>(
+    return BlocConsumer<AuthCubit, AuthCubitState>(
       listener: (context, state) {
         if (state is AuthCubitSuccess) {
           GoRouter.of(context).go(AppRouter.home);
@@ -17,7 +17,15 @@ class WrapperView extends StatelessWidget {
           GoRouter.of(context).go(AppRouter.register);
         }
       },
-      child: const Scaffold(),
+      builder: (context, state) {
+        if (state is AuthCubitLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        } else {
+          return const Scaffold();
+        }
+      },
     );
   }
 }
