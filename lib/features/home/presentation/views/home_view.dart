@@ -14,14 +14,34 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Center(child: Text("Home View")),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
+            icon: Image(
+              image: AssetImage("assets/home_icon.png"),
+              height: 30,
+              width: 30,
+            ),
+            label: "other",
+          ),
+          BottomNavigationBarItem(
+            icon: Image(
+              image: AssetImage("assets/chats_icon.png"),
+              height: 30,
+              width: 30,
+            ),
+            label: "chats",
+          ),
+          BottomNavigationBarItem(
+            icon: Image(
+              image: AssetImage("assets/profile_icon.png"),
+              height: 30,
+              width: 30,
+            ),
+            label: "profile",
           ),
         ],
       ),
