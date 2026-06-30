@@ -1,3 +1,6 @@
+import 'package:chat_app/features/home/presentation/views/widgets/chat_body.dart';
+import 'package:chat_app/features/home/presentation/views/widgets/others_body.dart';
+import 'package:chat_app/features/home/presentation/views/widgets/profile_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +16,10 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Home View")),
+      body: IndexedStack(
+        index: currentIndex,
+        children: [OthersBody(), ChatBody(), ProfileBody()],
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.grey.withValues(alpha: 0.2),
