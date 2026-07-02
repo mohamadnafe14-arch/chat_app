@@ -1,17 +1,19 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/styles/styles.dart';
 import 'package:chat_app/core/utils/app_router.dart';
+import 'package:chat_app/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class ChatItem extends StatelessWidget {
-  const ChatItem({super.key});
+  const ChatItem({super.key, required this.userModel});
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(AppRouter.chat);
+        context.push(AppRouter.chat, extra: userModel);
       },
       child: Card(
         elevation: 0,
@@ -26,15 +28,24 @@ class ChatItem extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(100.r),
-            child: Image.network(
-              "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-              width: 56.w,
-              height: 56.w,
-              fit: BoxFit.cover,
-            ),
+            child: userModel.photoUrl == ""
+                ? Container(
+                    width: 56.w,
+                    height: 56.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                  )
+                : Image.network(
+                    userModel.photoUrl!,
+                    width: 56.w,
+                    height: 56.w,
+                    fit: BoxFit.cover,
+                  ),
           ),
           title: Text(
-            "User 1",
+            userModel.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: medium.copyWith(fontWeight: FontWeight.w600),
