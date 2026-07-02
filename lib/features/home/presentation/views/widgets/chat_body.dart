@@ -1,13 +1,15 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/core/styles/styles.dart';
+import 'package:chat_app/features/home/presentation/viewmodel/users_cubit/users_cubit_cubit.dart';
 import 'package:chat_app/features/home/presentation/views/widgets/chat_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatBody extends StatelessWidget {
-  const ChatBody({super.key});
-
+  const ChatBody({super.key, required this.currentUserId});
+  final String currentUserId;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,6 +21,9 @@ class ChatBody extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 20.h)),
           SliverToBoxAdapter(
             child: TextField(
+              onChanged: (value) {
+                context.read<UsersCubit>().searchUsers(value, currentUserId);
+              },
               decoration: InputDecoration(
                 hintText: "Search from here",
                 fillColor: grey.withValues(alpha: .2),
