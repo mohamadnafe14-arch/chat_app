@@ -6,3 +6,7 @@ abstract class Failuer {
 class FirebaseAuthFailuer extends Failuer {
   const FirebaseAuthFailuer(super.message);
 }
+
+class FirebaseFirestoreFailuer extends Failuer {
+  const FirebaseFirestoreFailuer(super.message);
+}
