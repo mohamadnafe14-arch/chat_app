@@ -1,3 +1,4 @@
+import 'package:chat_app/features/auth/data/models/user_model.dart';
 import 'package:chat_app/features/auth/presentation/views/login_view.dart';
 import 'package:chat_app/features/auth/presentation/views/regsiter_view.dart';
 import 'package:chat_app/features/auth/presentation/views/wrapper_view.dart';
@@ -23,7 +24,13 @@ class AppRouter {
       ),
       GoRoute(path: login, builder: (context, state) => const LoginView()),
       GoRoute(path: wrapper, builder: (context, state) => const WrapperView()),
-      GoRoute(path: chat, builder: (context, state) => const ChatView()),
+      GoRoute(
+        path: chat,
+        builder: (context, state) {
+          final userModel = state.extra as UserModel;
+          return ChatView(userModel: userModel);
+        },
+      ),
     ],
   );
 }

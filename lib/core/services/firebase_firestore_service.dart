@@ -30,4 +30,19 @@ class FirebaseFirestoreService {
       throw AppException(e.toString());
     }
   }
+
+  Stream<List<UserModel>> getAllUsers(String currentUserId) {
+    try {
+      return _firestore.collection('users').snapshots().map((snapshot) {
+        return snapshot.docs
+            .where((doc) => doc.id != currentUserId)
+            .map((doc) => UserModel.fromJson(doc.data()))
+            .toList();
+      });
+    } on FirebaseException catch (e) {
+      throw FirebaseFirestoreExceptionMapper.map(e);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
 }

@@ -3,6 +3,9 @@ import 'package:chat_app/core/services/firebase_firestore_service.dart';
 import 'package:chat_app/features/auth/data/repos/auth_repo.dart';
 import 'package:chat_app/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:chat_app/features/auth/presentation/manager/cubits/auth_cubit/auth_cubit.dart';
+import 'package:chat_app/features/home/data/repos/home_repo.dart';
+import 'package:chat_app/features/home/data/repos/home_repo_imple.dart';
+import 'package:chat_app/features/home/presentation/viewmodel/users_cubit/users_cubit_cubit.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,7 +40,10 @@ Future<void> dependencyInjection() async {
       serviceLocator<FirebaseFirestoreService>(),
     ),
   );
-
+  serviceLocator.registerLazySingleton<HomeRepo>(
+    () => HomeRepoImple(serviceLocator()),
+  );
   // Cubits
   serviceLocator.registerFactory(() => AuthCubit(serviceLocator()));
+  serviceLocator.registerFactory(() => UsersCubit(serviceLocator()));
 }
