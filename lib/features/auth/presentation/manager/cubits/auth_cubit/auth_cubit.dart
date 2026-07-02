@@ -53,4 +53,13 @@ class AuthCubit extends Cubit<AuthCubitState> {
           : emit(AuthCubitSuccess(user)),
     );
   }
+
+  void signOut() async {
+    emit(AuthCubitLoading());
+    final result = await authRepo.logout();
+    result.fold(
+      (failuer) => emit(AuthCubitError(failuer.message)),
+      (unit) => emit(AuthCubitInitial()),
+    );
+  }
 }
